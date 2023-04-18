@@ -1,0 +1,5 @@
+= Vanadium LAAS
+
+Licensing as a service software for Vanadium Development
+
+Copyright &copy; Vanadium Development {docyear}
