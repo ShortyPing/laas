@@ -3,3 +3,15 @@
 Licensing as a service software for Vanadium Development
 
 Copyright &copy; Vanadium Development {docyear}
+
+
+== Backend
+The backend contains every api route and authentication / business logic to create and manage api keys.
+
+=== Environment variables required:
+
+[source]
+----
+DATABASE_URL="postgresql://user:pass@host:5432/db?schema=public"
+JWT_SECRET="secret"
+----

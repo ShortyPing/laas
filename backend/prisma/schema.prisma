@@ -18,11 +18,12 @@ model User {
 }
 
 model Project {
-  id      String    @id @default(uuid())
-  name    String
-  owner   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
-  License License[]
+  id                     String    @id @default(uuid())
+  name                   String
+  owner                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                 String
+  defaultLicenseTemplate String    @default("{U}{U}{U}{U}-{U}{U}{U}{U}-{U}{U}{U}{U}-{U}{U}{U}{U}")
+  License                License[]
 }
 
 model License {
