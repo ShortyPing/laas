@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {PrismaService} from "../_services/prisma/prisma.service";
 import {CreateProjectDto} from "./dto/create-project.dto";
 
@@ -24,5 +24,33 @@ export class ProjectService {
             status: "Ok",
             id: project.id
         }
+    }
+
+    public async deleteProject(id: string, userId?: string, administrative?: boolean) {
+        if(!userId && !administrative)
+            throw new ForbiddenException();
+
+        let project = await this.prismaService.project.findFirst({
+            where: {
+                id: id
+            }
+        });
+
+        if(!project)
+            throw new NotFoundException();
+
+        if((project.userId != userId) && !administrative)
+            throw new ForbiddenException();
+
+        await this.prismaService.project.delete({
+            where: {
+                id: id
+            }
+        });
+
+        return {
+            status: "Deleted"
+        }
+
     }
 }

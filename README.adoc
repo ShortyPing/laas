@@ -6,12 +6,15 @@ Copyright &copy; Vanadium Development {docyear}
 
 
 == Backend
-The backend contains every api route and authentication / business logic to create and manage api keys.
+The backend contains every api route and authentication / business logic to create and manage license keys.
 
 === Environment variables required:
+
+These environment variables SHOULD NOT be stored unencrypted.
 
 [source]
 ----
 DATABASE_URL="postgresql://user:pass@host:5432/db?schema=public"
 JWT_SECRET="secret"
+ENCRYPTION_SECRET="secret"
 ----
