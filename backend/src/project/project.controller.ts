@@ -18,6 +18,7 @@ export class ProjectController {
     @ApiBearerAuth()
     @UseGuards(JwtGuard)
     public async createProject(@Req() request: Request, @Body() body: CreateProjectDto) {
+
         return await this.projectService.createProject(request.user["id"], body)
     }
 
