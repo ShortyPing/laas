@@ -6,6 +6,7 @@ import {JwtModule} from "@nestjs/jwt";
 import config from "../config";
 import {JwtStrategy} from "../auth/jwt.strategy";
 import { SelfController } from './self/self.controller';
+import {ProjectModule} from "../project/project.module";
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { SelfController } from './self/self.controller';
         signOptions: {
           expiresIn: "7d"
         }
-      })
+      }),
+      ProjectModule
   ],
   controllers: [UserController, SelfController],
   providers: [UserService, PrismaService, JwtStrategy],

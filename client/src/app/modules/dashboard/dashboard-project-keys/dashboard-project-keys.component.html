@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h1 *ngIf="error" class="text-center text-danger">{{error}}</h1>
+
+  <ng-container *ngIf="!error">
+    <h1>Key management: {{projectObj?.name || "Loading..."}}</h1>
+
+    <button (click)="router.navigate(['/projects/' + project + '/keys/create'])" class="btn btn-success">Create key</button>
+
+    <table class="table table-responsive table-sm">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Label</th>
+        <th>Licensed to</th>
+        <th>Status</th>
+        <th>Expire date</th>
+        <th>Last used</th>
+        <th>Last validation ip</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let key of keys; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{key.label}}</td>
+        <td>{{key.licensedTo}}</td>
+        <td>
+          <span [class]="{'text-success': checkKeyValidity(key)=='VALID', 'text-danger': checkKeyValidity(key) != 'VALID'}">{{checkKeyValidity(key)}}</span>
+        </td>
+        <td>{{key.expires | date: "EEEE dd.MM.yyyy HH:mm"}}</td>
+        <td>{{(key.lastUsed | date: "EEEE dd.MM.yyyy HH:mm") || "n/a"}}</td>
+        <td>{{key.lastUsedIp || "n/a"}}</td>
+        <td>
+          <a [ngClass]="{'text-success': !key.activated, 'text-danger': key.activated}" style="cursor: pointer">
+            {{key.activated?"Disable":"Enable"}}
+          </a>
+        </td>
+      </tr>
+      <tr *ngIf="keys.length == 0">
+        <td colspan="8" class="text-center">No license keys found</td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>

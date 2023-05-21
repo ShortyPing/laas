@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h1>Vanadium LAAS</h1>
+  <h4>Please login to your account.</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label for="username">Username:</label>
+      <input [formControl]="form.controls.username" id="username" placeholder="Username" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="password">Password:</label>
+      <input [formControl]="form.controls.password" id="password" placeholder="Password" type="password" class="form-control">
+    </div>
+
+    <p class="text-danger" *ngIf="err">Username or password is invalid</p>
+    <button type="submit" class="btn btn-success">Login</button>
+  </form>
+</div>

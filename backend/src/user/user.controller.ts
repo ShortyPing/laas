@@ -1,10 +1,20 @@
-import {BadRequestException, Body, Controller, ForbiddenException, Get, Post, Req, UseGuards} from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    ForbiddenException,
+    Get,
+    Post,
+    Req,
+    Res,
+    UseGuards
+} from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {LoginDto} from "./dto/login.dto";
 import {JwtGuard} from "../auth/jwt/jwt.guard";
-import {Request} from "express";
+import {Request, Response} from "express";
 
 @Controller('user')
 @ApiTags("User")
@@ -41,7 +51,6 @@ export class UserController {
 
         return await this.userService.createUser(body);
     }
-
 
 
 }

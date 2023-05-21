@@ -1,6 +1,7 @@
 import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common';
 import {PrismaService} from "../_services/prisma/prisma.service";
 import {CreateProjectDto} from "./dto/create-project.dto";
+import {Prisma} from "@prisma/client";
 
 @Injectable()
 export class ProjectService {
@@ -16,7 +17,7 @@ export class ProjectService {
             data: {
                 name: data.name,
                 userId: userId,
-                defaultLicenseTemplate: data.defaultTemplate
+                defaultLicenseTemplate: data.defaultTemplate || undefined
             }
         })
 
@@ -24,6 +25,12 @@ export class ProjectService {
             status: "Ok",
             id: project.id
         }
+    }
+
+    public async getProjects(query: Prisma.ProjectWhereInput) {
+        return this.prismaService.project.findMany({
+            where: query
+        })
     }
 
     public async deleteProject(id: string, userId?: string, administrative?: boolean) {

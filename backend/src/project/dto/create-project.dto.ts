@@ -10,6 +10,5 @@ export class CreateProjectDto {
     @ApiProperty({required: false})
     @IsString()
     @IsOptional()
-    @IsNotEmpty()
     defaultTemplate?: string
 }

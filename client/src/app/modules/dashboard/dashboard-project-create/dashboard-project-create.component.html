@@ -1,0 +1,16 @@
+<div class="container mt-4">
+  <h2>Create project</h2>
+  <p class="text-danger" *ngIf="error">{{error}}</p>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-2">
+      <label for="name">Name:</label>
+      <input [formControl]="form.controls.name" class="form-control" id="name" placeholder="Name">
+    </div>
+    <div class="mb-2">
+      <label for="defaultLicenseTemplate">Default License Template (Optional):</label>
+      <input [formControl]="form.controls.defaultTemplate" class="form-control" id="defaultLicenseTemplate" placeholder="{U}{U}{U}{U}-{U}{U}{U}{U}-{U}{U}{U}{U}-{U}{U}{U}{U}">
+    </div>
+    <button type="submit" class="btn btn-success me-1">Create</button>
+    <button routerLink="/projects" class="btn btn-secondary">Cancel</button>
+  </form>
+</div>

@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <ng-container *ngIf="!createdKey">
+    <div id="create">
+      <h1>Create license key</h1>
+      <p class="text-danger" *ngIf="error">{{error}}</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-2">
+          <label for="label">Label: (Optional)</label>
+          <input [formControl]="form.controls.label" class="form-control" type="text" id="label" placeholder="Label">
+        </div>
+        <div class="mb-2">
+          <label for="licensedTo">Licensed to:</label>
+          <input [formControl]="form.controls.licensedTo" class="form-control" type="text" id="licensedTo" placeholder="Licensed to">
+        </div>
+        <div class="mb-2">
+          <label for="expires">Expires:</label>
+          <input [formControl]="form.controls.expires" class="form-control" type="datetime-local" id="expires">
+        </div>
+        <button type="submit" class="btn btn-success">Generate</button>
+      </form>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="createdKey">
+    <div class="alert alert-success">
+      Successfully created license key. <br /> <b>Key:</b> {{createdKey}}
+      <div class="alert alert-warning mt-2">
+        Warning! Hence the license key is encrypted, you cannot see it later.
+      </div>
+    </div>
+  </ng-container>
+</div>

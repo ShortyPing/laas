@@ -30,6 +30,7 @@ model License {
   key        String    @id
   project    Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId  String
+  label      String    @default("unlabeled")
   licensedTo String
   expires    DateTime?
   activated  Boolean   @default(true)
