@@ -31,10 +31,12 @@
         <td>{{(key.lastUsed | date: "EEEE dd.MM.yyyy HH:mm") || "n/a"}}</td>
         <td>{{key.lastUsedIp || "n/a"}}</td>
         <td>
-          <a [ngClass]="{'text-success': !key.activated, 'text-danger': key.activated}" style="cursor: pointer">
+          <a (click)="enableDisableKey(key.key, !key.activated)" [ngClass]="{'text-success': !key.activated, 'text-danger': key.activated}" style="cursor: pointer">
             {{key.activated?"Disable":"Enable"}}
           </a>
+          <a class="text-info" href="{{environment.backendUrl}}/project/{{project}}/key/verify?key=INSERTKEY" target="_blank">Test validity</a>
         </td>
+
       </tr>
       <tr *ngIf="keys.length == 0">
         <td colspan="8" class="text-center">No license keys found</td>

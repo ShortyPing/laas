@@ -4,9 +4,21 @@ Licensing as a service software for Vanadium Development
 
 Copyright &copy; Vanadium Development {docyear}
 
+== Technologies used
+* Backend
+** *Framework*: NestJS
+** *Database*: PostgreSQL
+** *Encryption*: BCrypt / SHA256
+* Frontend
+** *Framework*: Angular
+** *Style*: Bootstrap
+
+== Frontend
+The frontend serves as the management dashboard for keys and projects.
 
 == Backend
 The backend contains every api route and authentication / business logic to create and manage license keys.
+
 
 === Environment variables required:
 

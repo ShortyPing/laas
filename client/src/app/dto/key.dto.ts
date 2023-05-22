@@ -7,5 +7,6 @@ export type Key = {
   lastUsedIp?: string,
   lastUsed?: string,
   activated: boolean,
-  label: string
+  label: string,
+  key: string
 }

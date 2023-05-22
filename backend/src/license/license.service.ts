@@ -124,6 +124,9 @@ export class LicenseService {
                     }
                 }
             },
+            orderBy: {
+                key: "asc"
+            },
             select: {
                 licensedTo: true,
                 expires: true,
@@ -131,11 +134,41 @@ export class LicenseService {
                 lastUsedIp: true,
                 lastUsed: true,
                 activated: true,
-                label: true
+                label: true,
+                key: true
             }
         })
     }
 
+
+    public async setKeyStatus(key: string, status: boolean, executedUser: string) {
+        let keyObj = await this.prismaService.license.findFirst({
+            where: {
+                key: key,
+                project: {
+                    userId: executedUser
+                }
+            }
+        })
+
+        if(!keyObj)
+            throw new NotFoundException("Project or key not found")
+
+
+        await this.prismaService.license.update({
+            where: {key: key},
+            data: {
+                activated: String(status) === "true"
+            }
+        })
+
+
+
+        return {
+            status: "Ok",
+            activated: status
+        }
+    }
     public async verifyKey(key: string, ip: string, project?: string) {
         let hash = crypo.createHash("sha256").update(key).digest("base64");
 
@@ -185,6 +218,11 @@ export class LicenseService {
     private rand(pool: string) {
         return pool[Math.floor(Math.random() * pool.length)]
     }
+
+    private hash(key: string) {
+        return  crypo.createHash("sha256").update(key).digest("base64");
+    }
+
 
     private generateKey(template: string) {
         template = template.replace(/\{U}/g, () => this.rand(this.letterPools.upper))

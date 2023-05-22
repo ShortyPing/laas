@@ -3,7 +3,7 @@ import {ActivatedRoute, Route, Router} from "@angular/router";
 import {ProjectService} from "../../../services/project.service";
 import {Project} from "../../../dto/project.dto";
 import {Key} from "../../../dto/key.dto";
-
+import {environment} from "../../../../environments/environment";
 @Component({
   selector: 'app-dashboard-project-keys',
   templateUrl: './dashboard-project-keys.component.html',
@@ -21,10 +21,13 @@ export class DashboardProjectKeysComponent implements OnInit {
     })
   }
 
+  environment = environment
+
   ngOnInit(): void {
     this.projectService.getProject(this.project).subscribe({
       next: value => {
         this.projectObj = value
+
 
         this.projectService.getKeys(this.project).subscribe({
           next: v => this.keys = v
@@ -36,6 +39,13 @@ export class DashboardProjectKeysComponent implements OnInit {
     })
 
 
+  }
+
+  enableDisableKey(key: string, status: boolean) {
+
+    this.projectService.enableDisableKey(this.project, key, status).subscribe({
+      next: () => this.ngOnInit()
+    })
   }
 
   checkKeyValidity(key: Key): "VALID" | "EXPIRED" | "DISABLED" {

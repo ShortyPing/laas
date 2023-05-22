@@ -58,4 +58,16 @@ export class ProjectService {
         .set("Authorization", `Bearer ${this.authService.token.getValue()}`)
     })
   }
+
+  enableDisableKey(project: string, key: string, status: boolean) {
+    return this.http.patch(`${environment.backendUrl}/project/${project}/key/enabled`, {
+      status: status,
+      key: key
+    }, {
+      headers: new HttpHeaders()
+        .set("Content-Type", "application/json")
+        .set("Authorization", `Bearer ${this.authService.token.getValue()}`)
+    })
+  }
+
 }
